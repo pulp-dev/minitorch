@@ -5,6 +5,7 @@ from typing import List, Tuple
 
 
 def make_pts(N: int) -> List[Tuple[float, float]]:
+    """Создает N случайных точек в квадрате [0, 1] x [0, 1]."""
     X = []
     for i in range(N):
         x_1 = random.random()
@@ -15,12 +16,15 @@ def make_pts(N: int) -> List[Tuple[float, float]]:
 
 @dataclass
 class Graph:
+    """Датасет: N точек, их координаты X и метки y (0 или 1)."""
+
     N: int
     X: List[Tuple[float, float]]
     y: List[int]
 
 
 def simple(N: int) -> Graph:
+    """Метка 1, если x_1 < 0.5. Граница: вертикальная линия."""
     X = make_pts(N)
     y = []
     for x_1, x_2 in X:
@@ -30,6 +34,7 @@ def simple(N: int) -> Graph:
 
 
 def diag(N: int) -> Graph:
+    """Метка 1, если x_1 + x_2 < 0.5. Граница: диагональ."""
     X = make_pts(N)
     y = []
     for x_1, x_2 in X:
@@ -39,6 +44,7 @@ def diag(N: int) -> Graph:
 
 
 def split(N: int) -> Graph:
+    """Метка 1, если x_1 < 0.2 или x_1 > 0.8. Две вертикальные границы."""
     X = make_pts(N)
     y = []
     for x_1, x_2 in X:
@@ -48,6 +54,7 @@ def split(N: int) -> Graph:
 
 
 def xor(N: int) -> Graph:
+    """Метка 1 в левом верхнем и правом нижнем квадрантах. Это XOR."""
     X = make_pts(N)
     y = []
     for x_1, x_2 in X:
@@ -57,6 +64,7 @@ def xor(N: int) -> Graph:
 
 
 def circle(N: int) -> Graph:
+    """Метка 1 вне круга с центром (0.5, 0.5). Квадрат радиуса равен 0.1."""
     X = make_pts(N)
     y = []
     for x_1, x_2 in X:
@@ -67,6 +75,8 @@ def circle(N: int) -> Graph:
 
 
 def spiral(N: int) -> Graph:
+    """Две спирали из центра. Первая половина точек с меткой 0, вторая с меткой 1."""
+
     def x(t: float) -> float:
         return t * math.cos(t) / 20.0
 
